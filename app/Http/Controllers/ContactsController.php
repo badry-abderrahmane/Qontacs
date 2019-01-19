@@ -98,13 +98,13 @@ class ContactsController extends Controller
         }
     }
     
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // do data validation
         
         try {
             
-            $contact = $this->contactsRepository->updateContact($id, $request->all());
+            $contact = $this->contactsRepository->updateContact($request->id, $request->all());
             
             return response()->json($contact);
             

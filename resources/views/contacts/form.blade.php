@@ -13,11 +13,18 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mt-2 mx-auto">
-                                <button type="button" class="btn btn-outline-light">
+                                <a href="{{ route('contacts.create') }}" class="btn btn-outline-light">
                                     Add new contact
-                                </button>
-                                <button type="button" class="btn btn-outline-light">List my contacts</button>
+                                </a>
+                                <a href="{{ route('contacts.index') }}" class="btn btn-outline-light">
+                                    List my contacts
+                                </a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pt-2">
+                        <div class="col-md-12 ">
+                            <h4 class="display-4">Update Contact</h4>
                         </div>
                     </div>
                 </div>

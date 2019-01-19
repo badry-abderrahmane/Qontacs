@@ -57,7 +57,7 @@
                                 <label for="">Terms Of Services</label>
                             </dir>
                             <div class="col-md-6">
-                                <button class="btn btn-primary btn-block" v-html="updating ? 'Update' : 'Save'"></button>
+                                <button @click="submitForm()" class="btn btn-primary btn-block" v-html="updating ? 'Update' : 'Save'"></button>
                             </div>
                         </div>
                     </div>
@@ -115,6 +115,35 @@ export default {
             if (this.updating) {
                 this.form = this.contact
             }
+        },
+        submitForm(){
+            if (this.updating) {
+                this.updateContact()
+            }else{
+                this.createContact()
+            }
+        },
+        updateContact(){
+            window.axios.put('/contacts/update', 
+                this.form
+            )
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        createContact(){
+            window.axios.post('/contacts/store', 
+                this.form
+            )
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }
 }
