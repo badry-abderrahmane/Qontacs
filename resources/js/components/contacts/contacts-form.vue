@@ -128,10 +128,10 @@ export default {
                 this.form
             )
             .then((response) => {
-                console.log(response);
+                alert('Contact Well Updated!')
             })
             .catch((error) => {
-                console.log(error);
+                alert('Can\'t Update Contact :(')
             });
         },
         createContact(){
@@ -139,10 +139,10 @@ export default {
                 this.form
             )
             .then((response) => {
-                console.log(response);
+                alert('Contact Well Inserted!')
             })
             .catch((error) => {
-                console.log(error);
+                alert('Can\'t Insert Contact :(')
             });
         }
     }

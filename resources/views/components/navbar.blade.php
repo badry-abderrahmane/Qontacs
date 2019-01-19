@@ -13,12 +13,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="">Register</a>
-                </li>
+                
             </ul>
         </div>
     </div>
