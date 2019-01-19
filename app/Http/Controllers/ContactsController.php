@@ -15,12 +15,32 @@ class ContactsController extends Controller
         $this->contactsRepository = $contactsRepository;
     }
     
-
-    public function index() 
+    /**
+     * Contacts Index 
+     * 
+     * @return View Contacts List 
+     */
+    public function index()
     {
         return view('contacts.index');
     }
 
+    /**
+     * Contacts Index 
+     * 
+     * @return View Contact Form
+     */
+    public function create()
+    {
+        return view('contacts.form');
+    }
+
+    /**
+     * Contacts Paginated List 
+     * 
+     * @param Request 
+     * @return Array Contacts Paginated
+     */
     public function getAllPaginated(Request $request) 
     {
         $dataRequest = $request->all();
