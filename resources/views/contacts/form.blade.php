@@ -31,7 +31,14 @@
 
     @component('components.navbar')@endcomponent
 
-    <contacts-form></contacts-form>
+    <contacts-form 
+        @isset($contact)
+            :contact="{{ $contact }}"
+            :updating="true"
+        @else
+            :contact="[]"
+        @endisset
+    />
     
 @endsection
     

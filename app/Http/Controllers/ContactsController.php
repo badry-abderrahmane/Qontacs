@@ -26,13 +26,24 @@ class ContactsController extends Controller
     }
 
     /**
-     * Contacts Index 
+     * Contacts Create 
      * 
      * @return View Contact Form
      */
     public function create()
     {
         return view('contacts.form');
+    }
+
+    /**
+     * Contacts Edit 
+     * 
+     * @return View Contact Form
+     */
+    public function edit($id)
+    {
+        $contact = $this->contactsRepository->contactById($id);
+        return view('contacts.form', ['contact' => $contact]);
     }
 
     /**
