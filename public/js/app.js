@@ -1937,13 +1937,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    /**
+     * Check Props Values
+     */
     this.checkPropsData();
+    /**
+     * Init Jquery datepicker
+     */
+
     $("#datepicker").datepicker({
       dateFormat: "yy-mm-dd"
     });
   },
   methods: {
     checkPropsData: function checkPropsData() {
+      /**
+       * If Updating set form values
+       */
       if (this.updating) {
         this.form = this.contact;
         this.setDate();
@@ -1951,15 +1961,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     submitForm: function submitForm() {
       this.showError = false;
+      /**
+       * Get Jquery Date Picker Value
+       */
+
       this.getDate();
+      /**
+       * Set Name To Title Case
+       */
+
+      this.form.first_name = this.toTitleCase(this.form.first_name);
+      this.form.last_name = this.toTitleCase(this.form.last_name);
+      /**
+       * Check if form required elements
+       * Are filled else show err
+       */
 
       if (this.validForm()) {
+        /**
+         * Check If Updating 
+         * Purpose : PUT | POST Request
+         */
         if (this.updating) {
           this.updateContact();
         } else {
           this.createContact();
         }
       } else {
+        /**
+         * Show Error Div
+         * Inputs Required
+         */
         this.showError = true;
         $("html, body").animate({
           scrollTop: 0
@@ -1967,6 +1999,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateContact: function updateContact() {
+      /**
+       * Send Axios Put Request
+       * @param Form 
+       */
       window.axios.put('/contacts/update', this.form).then(function (response) {
         alert('Contact Well Updated!');
       }).catch(function (error) {
@@ -1974,6 +2010,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createContact: function createContact() {
+      /**
+       * Send Axios post Request
+       * @param Form 
+       */
       window.axios.post('/contacts/store', this.form).then(function (response) {
         alert('Contact Well Inserted!');
       }).catch(function (error) {
@@ -1981,6 +2021,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     validForm: function validForm() {
+      /**
+       * Check Form Required Inputs
+       */
       if (this.validateEmail(this.form.email) && this.form.first_name && this.form.last_name) {
         return true;
       }
@@ -1988,14 +2031,32 @@ __webpack_require__.r(__webpack_exports__);
       return false;
     },
     validateEmail: function validateEmail(email) {
+      /**
+       * Validate Email Adrees RegX
+       */
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
     setDate: function setDate() {
+      /**
+       * Set Jquery Date Picker Date
+       */
       $("#datepicker").datepicker("setDate", this.form.birth_date);
     },
     getDate: function getDate() {
+      /**
+       * Get Jquery Datepicker Value
+       */
       this.form.birth_date = $("#datepicker").val();
+    },
+    toTitleCase: function toTitleCase(str) {
+      /**
+       * Return String Title Case 
+       * Formatted.
+       */
+      return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
   }
 });
