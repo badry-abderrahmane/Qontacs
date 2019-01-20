@@ -36,9 +36,11 @@ export default {
                         "data": "id",
                         "render": function(data, type, row, meta){
                             return `
-                                <a href="contacts/edit/${data}" class="btn btn-primary"><i class"fa fa-edit"></i>E</a>
-                                <a href="contacts/delete/${data}" class="btn btn-primary"><i class"fa fa-trash"></i>D</a>
-                                <a href="contacts/show/${data}" class="btn btn-primary"><i class"fa fa-trash"></i>S</a>
+                                <div class="row">
+                                    <a href="contacts/show/${data}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                    <a href="contacts/edit/${data}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="contacts/delete/${data}" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></a>
+                                </div>
                             `;
                         }
                     } 

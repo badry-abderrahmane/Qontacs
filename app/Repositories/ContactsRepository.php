@@ -67,11 +67,14 @@ class ContactsRepository
                                 ->get()
                                 ->sortBy(function($value, $key) use($sortCol) {
                                     return array_keys($value->getAttributes())[(int)$sortCol];
-                                }, $sortDir);
+                                }, false, $sortDir);
 
             $contacts = $this->contactResource->transfrom($contacts)->toArray();
+
             $paginator = $this->paginateArrayResults($contacts, $start, $perPage);
+
             return $this->adaptToDataTables($paginator, $contacts, $draw);
+
         } catch (QueryException $e) {
             throw new \Exception($e);
         }

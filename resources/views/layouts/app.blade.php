@@ -15,10 +15,12 @@
     <!-- Styles -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons.css">
+    
     <link rel="stylesheet" href="{{ asset('css/theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawsome.min.css') }}">
 </head>
 <body>
     @yield('header')

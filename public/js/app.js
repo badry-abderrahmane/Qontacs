@@ -2014,7 +2014,7 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           "data": "id",
           "render": function render(data, type, row, meta) {
-            return "\n                                <a href=\"contacts/edit/".concat(data, "\" class=\"btn btn-primary\"><i class\"fa fa-edit\"></i>E</a>\n                                <a href=\"contacts/delete/").concat(data, "\" class=\"btn btn-primary\"><i class\"fa fa-trash\"></i>D</a>\n                                <a href=\"contacts/show/").concat(data, "\" class=\"btn btn-primary\"><i class\"fa fa-trash\"></i>S</a>\n                            ");
+            return "\n                                <div class=\"row\">\n                                    <a href=\"contacts/show/".concat(data, "\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-eye\"></i></a>\n                                    <a href=\"contacts/edit/").concat(data, "\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-edit\"></i></a>\n                                    <a href=\"contacts/delete/").concat(data, "\" class=\"btn btn-primary btn-sm\"><i class=\"fa fa-trash\"></i></a>\n                                </div>\n                            ");
           }
         }],
         "ajax": {
