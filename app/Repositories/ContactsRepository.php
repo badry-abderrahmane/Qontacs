@@ -55,10 +55,20 @@ class ContactsRepository
      *
      * @return Collection
      */
-    public function allContacts($start = 0, $perPage = 10, $draw = 1)
+    public function allContacts($start = 0, $perPage = 10, $search = '', $sortCol = 'id', $sortDir = 'asc', $draw = 1)
     {
         try {
-            $contacts = Contact::all();
+            $contacts = Contact::where('email', 'like', '%' . $search . '%')
+                                ->orWhere('first_name', 'like', '%' . $search . '%')
+                                ->orWhere('city', 'like', '%' . $search . '%')
+                                ->orWhere('birth_date', 'like', '%' . $search . '%')
+                                ->orWhere('phone', 'like', '%' . $search . '%')
+                                ->orWhere('company', 'like', '%' . $search . '%')
+                                ->get()
+                                ->sortBy(function($value, $key) use($sortCol) {
+                                    return array_keys($value->getAttributes())[(int)$sortCol];
+                                }, $sortDir);
+
             $contacts = $this->contactResource->transfrom($contacts)->toArray();
             $paginator = $this->paginateArrayResults($contacts, $start, $perPage);
             return $this->adaptToDataTables($paginator, $contacts, $draw);

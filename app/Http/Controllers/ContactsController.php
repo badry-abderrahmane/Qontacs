@@ -66,9 +66,13 @@ class ContactsController extends Controller
     public function getAllPaginated(Request $request) 
     {
         $dataRequest = $request->all();
+
         $contacts = $this->contactsRepository->allContacts(
             $dataRequest["start"], 
             $dataRequest["length"], 
+            $dataRequest["search"]["value"],
+            $dataRequest["order"][0]["column"],
+            $dataRequest["order"][0]["dir"],
             $dataRequest["draw"]
         );
         
