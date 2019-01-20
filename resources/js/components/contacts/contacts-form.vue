@@ -1,6 +1,13 @@
 <template>
     <div class="container-fluid pt-3 pb-5 bg-primary">
         <div class="row">
+            <div class="col-md-12">
+                <div v-if="showError" class="alert alert-danger">
+                    Please fill the form correctly :<br>
+                    > Email must be valid email address<br>
+                    > First Name and Last Name Are required
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
@@ -9,26 +16,26 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="email">Email Address</label>
+                                <label for="email">Email Address *</label>
                                 <input v-model="form.email" type="email" name="email" class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">First Name *</label>
                                 <input v-model="form.first_name" type="text" name="first_name" class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Last Name *</label>
                                 <input v-model="form.last_name" type="text" name="last_name" class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="birth_date">Birth Date</label>
-                                <input v-model="form.birth_date" name="birth_date" type="text" class="form-control">
+                                <input v-model="form.birth_date" id="datepicker" name="birth_date" type="date" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -104,23 +111,35 @@ export default {
                 phone       : '',
                 company     : '',
                 address     : '',
-            }
+            },
+            showError: false
         }
     },
     mounted(){
         this.checkPropsData()
+        $( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
     },
     methods:{
         checkPropsData(){
             if (this.updating) {
                 this.form = this.contact
+                this.setDate()
+                
             }
         },
         submitForm(){
-            if (this.updating) {
-                this.updateContact()
+            this.showError = false
+            this.getDate()
+
+            if (this.validForm()) {
+                if (this.updating) {
+                    this.updateContact()
+                }else{
+                    this.createContact()
+                }    
             }else{
-                this.createContact()
+                this.showError = true
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         },
         updateContact(){
@@ -144,6 +163,22 @@ export default {
             .catch((error) => {
                 alert('Can\'t Insert Contact :(')
             });
+        },
+        validForm(){
+            if (this.validateEmail(this.form.email) && this.form.first_name && this.form.last_name) {
+                return true;
+            }
+            return false;
+        },
+        validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        },
+        setDate(){
+            $( "#datepicker" ).datepicker( "setDate", this.form.birth_date );
+        },
+        getDate(){
+            this.form.birth_date = $( "#datepicker" ).val();
         }
     }
 }

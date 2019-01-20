@@ -1910,6 +1910,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["contact", "updating"],
   data: function data() {
@@ -1925,23 +1932,38 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         company: '',
         address: ''
-      }
+      },
+      showError: false
     };
   },
   mounted: function mounted() {
     this.checkPropsData();
+    $("#datepicker").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
   },
   methods: {
     checkPropsData: function checkPropsData() {
       if (this.updating) {
         this.form = this.contact;
+        this.setDate();
       }
     },
     submitForm: function submitForm() {
-      if (this.updating) {
-        this.updateContact();
+      this.showError = false;
+      this.getDate();
+
+      if (this.validForm()) {
+        if (this.updating) {
+          this.updateContact();
+        } else {
+          this.createContact();
+        }
       } else {
-        this.createContact();
+        this.showError = true;
+        $("html, body").animate({
+          scrollTop: 0
+        }, "slow");
       }
     },
     updateContact: function updateContact() {
@@ -1957,6 +1979,23 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (error) {
         alert('Can\'t Insert Contact :(');
       });
+    },
+    validForm: function validForm() {
+      if (this.validateEmail(this.form.email) && this.form.first_name && this.form.last_name) {
+        return true;
+      }
+
+      return false;
+    },
+    validateEmail: function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    setDate: function setDate() {
+      $("#datepicker").datepicker("setDate", this.form.birth_date);
+    },
+    getDate: function getDate() {
+      this.form.birth_date = $("#datepicker").val();
     }
   }
 });
@@ -20464,6 +20503,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid pt-3 pb-5 bg-primary" }, [
     _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _vm.showError
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v("\n                Please fill the form correctly :"),
+              _c("br"),
+              _vm._v("\n                > Email must be valid email address"),
+              _c("br"),
+              _vm._v(
+                "\n                > First Name and Last Name Are required\n            "
+              )
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "col-md-6" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
@@ -20476,7 +20529,7 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12" }, [
                 _c("label", { attrs: { for: "email" } }, [
-                  _vm._v("Email Address")
+                  _vm._v("Email Address *")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -20506,7 +20559,7 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12" }, [
                 _c("label", { attrs: { for: "first_name" } }, [
-                  _vm._v("First Name")
+                  _vm._v("First Name *")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -20536,7 +20589,7 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12" }, [
                 _c("label", { attrs: { for: "last_name" } }, [
-                  _vm._v("Last Name")
+                  _vm._v("Last Name *")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -20579,7 +20632,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "birth_date", type: "text" },
+                  attrs: { id: "datepicker", name: "birth_date", type: "date" },
                   domProps: { value: _vm.form.birth_date },
                   on: {
                     input: function($event) {

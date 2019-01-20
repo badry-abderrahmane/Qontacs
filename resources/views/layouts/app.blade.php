@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fontawsome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jqueryui.min.css') }}">
 </head>
 <body>
     @yield('header')
@@ -28,10 +29,13 @@
     <div id="app">
         @yield('content')
     </div>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/jqueryui.js') }}"></script>
 </body>
 </html>
+
