@@ -47,6 +47,17 @@ class ContactsController extends Controller
     }
 
     /**
+     * Contacts Delete 
+     * 
+     * @return View Contact Delete
+     */
+    public function delete($id)
+    {
+        $contact = $this->contactsRepository->contactById($id);
+        return view('contacts.delete', ['contact' => $contact]);
+    }
+
+    /**
      * Contacts Paginated List 
      * 
      * @param Request 
